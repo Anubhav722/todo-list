@@ -3,8 +3,11 @@
 {% block content %}
 <h1>Task Details</h1>
 <h2>Title: {{ object.title }}</h2>
-<strong>Description: {{ object.description }}</strong>
-<strong>Status: {{ object.status }}</strong>
-<strong>Hidden: {{ object.hidden }}</strong>
+<strong>Description: {{ object.description }}</strong></br>
+<strong>Status: {{ object.status }}</strong></br>
+<strong>Hidden: {{ object.hidden }}</strong></br>
 
+<form action="{% url 'task:update' object.pk %}">
+	<button type="submit">Edit</button>
+</form>
 {% endblock %}

@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib.auth.models import User
 
 from task.models import Task
 # Create your views here.
@@ -16,19 +16,10 @@ def home(request):
     return render(request, 'base.html', {})
 
 
-def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('task:home')
-    else:
-        form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
+class SignUp(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'signup.html'
 
 
 class TaskList(ListView):
@@ -37,6 +28,11 @@ class TaskList(ListView):
 
     def get_queryset(self):
         return Task.objects.filter(hidden=False)
+
+
+class UserList(ListView):
+    model = User
+    template_name = 'user_list.html'
 
 
 class TaskDetail(DetailView):

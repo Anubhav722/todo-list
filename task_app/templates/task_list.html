@@ -38,7 +38,7 @@
         {% if request.user.is_authenticated and task.status == False %}
     	   <td><a href="{% url "task:done" task.pk %}">Done</a></td>
         {% else %}
-            <td>Done</td>
+            <td>Done by {{ task.modified_by }}</td>
         {% endif %}
         </tr>
     	{% endfor %}

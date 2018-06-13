@@ -10,12 +10,6 @@
 	<strong>Status: Pending</strong></br>
 {% endif %}
 
-{% if object.hidden %}
-	<strong>Hidden: Yes</strong></br>
-{% else %}
-	<strong>Hidden: No</strong></br>
-{% endif %}
-
 {% if object.status %}
 	<strong>Mark Done by: {{ object.modified_by }}</strong></br>
 {% endif %}

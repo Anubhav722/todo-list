@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Task Edit</h1>
 
-{% if object.user == request.user and user.is_authenticated %}
+{% if object.created_by == request.user and request.user.is_authenticated %}
 	<form method="post">
 		{% csrf_token %}
     	{{ form.as_p }}

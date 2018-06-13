@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login, authenticate
+# from django.contrib.auth import login, authenticate
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -26,8 +26,8 @@ class TaskList(ListView):
     model = Task
     template_name = 'task_list.html'
 
-    def get_queryset(self):
-        return Task.objects.filter(hidden=False)
+    # def get_queryset(self):
+    #     return Task.objects.filter(hidden=False)
 
 
 class UserList(ListView):
@@ -58,7 +58,7 @@ class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
     login_url = '/accounts/login/'
     redirect_field_name = 'login'
-    fields = ['title', 'description', 'status', 'hidden']
+    fields = ['title', 'description', 'status']
     success_url = reverse_lazy('task:task')
     template_name = 'task_update.html'
 
@@ -78,3 +78,11 @@ def markDone(request, pk):
         task.modified_by = request.user
         task.save()
     return redirect('task:task')
+
+
+class HideCompletedTasks(ListView):
+    model = Task
+    template_name = 'task_list.html'
+
+    def get_queryset(self):
+        return Task.objects.filter(status=False)

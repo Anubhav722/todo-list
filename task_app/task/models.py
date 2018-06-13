@@ -12,7 +12,6 @@ class Task(models.Model):
     title = models.CharField(max_length=120)
     description = models.TextField()
     status = models.BooleanField(default=False)
-    hidden = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.title

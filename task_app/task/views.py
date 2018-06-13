@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.views.generic import ListView, DetailView
@@ -49,7 +49,8 @@ class TaskCreate(LoginRequiredMixin, CreateView):
     template_name = 'task_create.html'
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        form.instance.created_by = self.request.user
+        form.instance.modified_by = self.request.user
         return super(TaskCreate, self).form_valid(form)
 
 
@@ -68,3 +69,12 @@ class TaskDelete(LoginRequiredMixin, DeleteView):
     redirect_field_name = 'login'
     success_url = reverse_lazy('task:task')
     template_name = 'task_confirm_delete.html'
+
+
+def markDone(request, pk):
+    if request.user.is_authenticated():
+        task = get_object_or_404(Task, pk=pk)
+        task.status = True
+        task.modified_by = request.user
+        task.save()
+    return redirect('task:task')

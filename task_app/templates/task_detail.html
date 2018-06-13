@@ -4,9 +4,23 @@
 <h1>Task Details</h1>
 <h2>Title: {{ object.title }}</h2>
 <strong>Description: {{ object.description }}</strong></br>
-<strong>Status: {{ object.status }}</strong></br>
-<strong>Hidden: {{ object.hidden }}</strong></br>
+{% if object.status %}
+	<strong>Status: Done</strong></br>
+{% else %}
+	<strong>Status: Pending</strong></br>
+{% endif %}
 
+{% if object.hidden %}
+	<strong>Hidden: Yes</strong></br>
+{% else %}
+	<strong>Hidden: No</strong></br>
+{% endif %}
+
+{% if object.status %}
+	<strong>Mark Done by: {{ object.modified_by }}</strong></br>
+{% endif %}
+
+</br>
 <form action="{% url 'task:update' object.pk %}">
 	<button type="submit">Edit</button>
 </form>

@@ -11,6 +11,9 @@
     	<th>View</th>
     	<th>Edit</th>
     	<th>Delete</th>
+        {% if request.user.is_authenticated %}
+            <th>Mark Done</th>
+        {% endif %}
     	</tr>
 	</thead>
 	<tbody>
@@ -18,7 +21,7 @@
     	<tr>
     	<td>{{ task.title }}</td>
     	<td>{{ task.description }}</td>
-        {% if task.status %}}
+        {% if task.status %}
     	   <td>Done</td>
         {% else %}
             <td>Pending</td>
@@ -26,10 +29,14 @@
     	<td><a href="{% url "task:detail" task.pk %}">view</a></td>
     	<td><a href="{% url "task:update" task.pk %}">edit</a></td>
         <td><a href="{% url "task:delete" task.pk %}">delete</a></td>
-    	</tr>
+        {% if request.user.is_authenticated and task.status == False %}
+    	   <td><a href="{% url "task:done" task.pk %}">Done</a></td>
+        {% endif %}
+        </tr>
     	{% endfor %}
 	</tbody>
 	</table>
+    </br>
     <form action="{% url 'task:create' %}">
         <button type="submit" >Add</button>
     </form>

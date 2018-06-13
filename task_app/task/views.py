@@ -11,11 +11,6 @@ from task.models import Task
 # Create your views here.
 
 
-def home(request):
-    print request.user
-    return render(request, 'base.html', {})
-
-
 class SignUp(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
@@ -25,9 +20,6 @@ class SignUp(CreateView):
 class TaskList(ListView):
     model = Task
     template_name = 'task_list.html'
-
-    # def get_queryset(self):
-    #     return Task.objects.filter(hidden=False)
 
 
 class UserList(ListView):

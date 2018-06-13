@@ -37,6 +37,8 @@
         <td><a href="{% url "task:delete" task.pk %}">delete</a></td>
         {% if request.user.is_authenticated and task.status == False %}
     	   <td><a href="{% url "task:done" task.pk %}">Done</a></td>
+        {% else %}
+            <td>Done</td>
         {% endif %}
         </tr>
     	{% endfor %}

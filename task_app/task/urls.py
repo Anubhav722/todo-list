@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^create/$', views.TaskCreate.as_view(), name='create'),
     url(r'^update/(?P<pk>\d+)/$', views.TaskUpdate.as_view(), name='update'),
     url(r'^delete/(?P<pk>\d+)/$', views.TaskDelete.as_view(), name='delete'),
-    url(r'users/$', views.UserList.as_view(), name='users'),
-    url(r'done/(?P<pk>\d+)/$', views.markDone, name='done'),
-    url(r'hide/$', views.HideCompletedTasks.as_view(), name='hide')
+    url(r'^users/$', views.UserList.as_view(), name='users'),
+    url(r'^done/(?P<pk>\d+)/$', views.markDone, name='done'),
+    url(r'^hide/$', views.HideCompletedTasks.as_view(), name='hide')
 ]

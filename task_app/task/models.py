@@ -6,7 +6,15 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
-class Task(models.Model):
+class BaseModel(models.Model):
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Task(BaseModel):
     created_by = models.ForeignKey(User, related_name='created_by')
     modified_by = models.ForeignKey(User, related_name='modified_by')
     title = models.CharField(max_length=120)

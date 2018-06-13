@@ -4,7 +4,7 @@
 1. git clone <repo_url>
 2. Navigate to the directory and create virtual environment `virtualenv .`
 3. Activate the virtualenv `source bin/activate`
-4. Install the dependencies `pip install -r requirements`
+4. Install the dependencies `pip install -r requirements.txt`
 5. Create the database `./manage.py migrate`
 6. Create Superuser `./manage.py createsuperuser`
 7. Run the server `./manage.py runserver`

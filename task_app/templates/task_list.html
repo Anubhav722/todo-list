@@ -1,9 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	{% for task in object_list %}
-		{{ task.title }}</br>
-		{{ task.description }}</br>
-		{{ task.status }}</br>
-	{% endfor %}
+	<h2>List of All Tasks</h2>
+	<table border="1">
+	<thead>
+    	<tr>
+    	<th>Title</th>
+    	<th>Description</th>
+    	<th>Status</th>
+    	<th>View</th>
+    	<th>Edit</th>
+    	<th>Delete</th>
+    	</tr>
+	</thead>
+	<tbody>
+    	{% for task in object_list %}
+    	<tr>
+    	<td>{{ task.title }}</td>
+    	<td>{{ task.description }}</td>
+        {% if task.status %}}
+    	   <td>Done</td>
+        {% else %}
+            <td>Pending</td>
+        {% endif %}
+    	<td><a href="{% url "task:detail" task.pk %}">view</a></td>
+    	<td><a href="{% url "task:update" task.pk %}">edit</a></td>
+        <td><a href="{% url "task:delete" task.pk %}">delete</a></td>
+    	</tr>
+    	{% endfor %}
+	</tbody>
+	</table>
+    <form action="{% url 'task:create' %}">
+        <button type="submit" >Add</button>
+    </form>
+
 {% endblock %}
+    	

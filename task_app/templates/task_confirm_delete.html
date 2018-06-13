@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Task Delete</h2>
+{% if request.user == object.user and request.user.is_authenticated %}
+<form method="post">{% csrf_token %}
+    Are you sure you want to delete "{{ object }}" ?</br>
+    <input type="submit" value="Yes" />
+</form>
+{% else %}
+<h3>You don't have permission to perform this action</h3>
+{% endif %}
+{% endblock %}

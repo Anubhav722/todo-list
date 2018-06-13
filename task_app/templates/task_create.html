@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Task Create</h1>
+
+{% if request.user.is_authenticated %}
+	<form method="post">
+		{% csrf_token %}
+    	{{ form.as_p }}
+    	<input type="submit" value="Submit" />
+	</form>
+{% else %}
+	<h2>You don't have permission</h2>
+{% endif %}
+{% endblock %}
